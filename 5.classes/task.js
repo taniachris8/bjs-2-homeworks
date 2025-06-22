@@ -62,7 +62,7 @@ class DetectiveBook extends Book {
   }
 }
 
-////////////////////Задача 2. Библиотека/////////////////////
+
 class Library {
   constructor(name) {
     this.name = name;
@@ -90,7 +90,6 @@ class Library {
     for (let i = 0; i < this.books.length; i++) {
       if (bookName === this.books[i].name) {
         return this.books.splice(i, 1)[0];
-        // return bookName;
       }
     }
 
@@ -119,4 +118,47 @@ issuedBook.state = 80;
 issuedBook.fix();
 library.addBook(issuedBook);
 
-//////////////////Задача 3. Журнал успеваемости
+class Student {
+  constructor(name) {
+    this.name = name;
+    this.marks = {};
+  }
+
+  addMark(mark, subject) {
+    if (mark < 2 || mark > 5) return;
+    let object = this.marks;
+    if (!object.hasOwnProperty(subject)) {
+      object[subject] = [];
+    }
+    for (let key in object) {
+      if (key === subject) {
+        object[key].push(mark);
+      }
+    }
+  }
+
+  getAverageBySubject(subject) {
+    let object = this.marks;
+    if (!object.hasOwnProperty(subject)) {
+      return 0;
+    }
+
+    for (let key in object) {
+      if (key === subject) {
+        let sum = object[key].reduce((acc, mark) => acc + mark, 0);
+        return sum / object[key].length;
+      }
+    }
+  }
+
+  getAverage(){
+    let object = this.marks;
+    const allSubjects = Object.keys(object);
+    if(allSubjects.length === 0) return 0;
+    return (
+      allSubjects.reduce((acc, item) => acc + this.getAverageBySubject(item), 0) /
+      allSubjects.length
+    );
+  }
+}
+
