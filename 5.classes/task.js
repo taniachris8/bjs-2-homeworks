@@ -62,7 +62,6 @@ class DetectiveBook extends Book {
   }
 }
 
-
 class Library {
   constructor(name) {
     this.name = name;
@@ -126,39 +125,38 @@ class Student {
 
   addMark(mark, subject) {
     if (mark < 2 || mark > 5) return;
-    let object = this.marks;
-    if (!object.hasOwnProperty(subject)) {
-      object[subject] = [];
+
+    if (!this.marks.hasOwnProperty(subject)) {
+      this.marks[subject] = [];
     }
-    for (let key in object) {
+    for (let key in this.marks) {
       if (key === subject) {
-        object[key].push(mark);
+        this.marks[key].push(mark);
       }
     }
   }
 
   getAverageBySubject(subject) {
-    let object = this.marks;
-    if (!object.hasOwnProperty(subject)) {
+    if (!this.marks.hasOwnProperty(subject)) {
       return 0;
     }
 
-    for (let key in object) {
+    for (let key in this.marks) {
       if (key === subject) {
-        let sum = object[key].reduce((acc, mark) => acc + mark, 0);
-        return sum / object[key].length;
+        let sum = this.marks[key].reduce((acc, mark) => acc + mark, 0);
+        return sum / this.marks[key].length;
       }
     }
   }
 
-  getAverage(){
-    let object = this.marks;
-    const allSubjects = Object.keys(object);
-    if(allSubjects.length === 0) return 0;
+  getAverage() {
+    const allSubjects = Object.keys(this.marks);
+    if (allSubjects.length === 0) return 0;
     return (
-      allSubjects.reduce((acc, item) => acc + this.getAverageBySubject(item), 0) /
-      allSubjects.length
+      allSubjects.reduce(
+        (acc, item) => acc + this.getAverageBySubject(item),
+        0
+      ) / allSubjects.length
     );
   }
 }
-
